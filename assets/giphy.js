@@ -1,23 +1,31 @@
 $(document).ready(function () {
     var topics = ["shaq", "michael jordan", "russel westbrook", "derrick rose", "chris paul", "dwayne wade", "donovan mitchell", "lebron james", "kobe bryant", "scottie pippen"];
 
-    topics.forEach(function (player) {
-        // 1. **
+
+    topics.forEach(createPlayer);
+
+
+    function createPlayer(player) {
+
         var playerButton = $("<button>");
         playerButton.attr("data-person", player)
+        playerButton.addClass("player-button")
         playerButton.text(player)
         $("#players").append(playerButton)
 
+    };
+
+    $("#createPlayerForm").submit(function (e) {
+        e.preventDefault();
+        var playerName = e.target[0].value;
+        createPlayer(playerName);
     });
 
-
-    $("button").on("click", function () {
+    $(document).on("click", ".player-button", function () {
         var person = $(this).attr("data-person");
-
 
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             person + "&api_key=3BuWSkvS4uvukx5JINQT5m9bVuXi5naC";
-
 
         $.ajax({
             url: queryURL,
@@ -34,7 +42,6 @@ $(document).ready(function () {
                     var p = $("<p>").text("Rating: " + rating);
                     var personImage = $("<img class='gif'>");
 
-                    // 3.**
                     personImage.attr("src", results[i].images.fixed_height_still.url);
 
                     personImage.attr("data-state", "still");
@@ -61,12 +68,6 @@ $(document).ready(function () {
                     }
 
                 });
-
-                function submitButton() {
-                    // 1. create button based off search
-                    // 2. call api
-                    // 3. save attributes to image
-                }
 
             });
     });
