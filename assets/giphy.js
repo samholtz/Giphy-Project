@@ -1,9 +1,7 @@
 $(document).ready(function () {
     var topics = ["shaq", "michael jordan", "russel westbrook", "derrick rose", "chris paul", "dwayne wade", "donovan mitchell", "lebron james", "kobe bryant", "scottie pippen"];
 
-
     topics.forEach(createPlayer);
-
 
     function createPlayer(player) {
 
